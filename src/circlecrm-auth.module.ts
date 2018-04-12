@@ -5,6 +5,10 @@ import {CirclecrmAuthenticationService} from "./circlecrm-authentication.service
 import {CirclecrmAuthenticationGuard} from "./circlecrm-authentication.guard";
 import {CirclecrmAuthenticationHttpInterceptor} from "./circlecrm-authentication.http.interceptor";
 import {Ng2Webstorage} from "ngx-webstorage";
+import {CIRCLECRM_MENU_FILTER} from "@circlecrm/circlecrm-core";
+import {CirclecrmRoleMenuFilter} from "./circlecrm-role-menu.filter";
+import {CirclecrmCheckAccessPipe} from "./circlecrm-check-access.pipe";
+import {CirclecrmAuthenticationRoleGuard} from "./circlecrm-authentication-role.guard";
 
 export const defaultConfig = {
     apiLoginPath: 'api/authenticates',
@@ -15,6 +19,12 @@ export const defaultConfig = {
 };
 
 @NgModule({
+    declarations: [
+        CirclecrmCheckAccessPipe
+    ],
+    exports: [
+        CirclecrmCheckAccessPipe
+    ],
     imports: [
         HttpClientModule,
         Ng2Webstorage
@@ -32,6 +42,7 @@ export class CirclecrmAuthModule {
                 },
                 CirclecrmAuthenticationService,
                 CirclecrmAuthenticationGuard,
+                CirclecrmAuthenticationRoleGuard,
                 {
                     deps: [
                         Injector
@@ -39,6 +50,14 @@ export class CirclecrmAuthModule {
                     multi: true,
                     provide: HTTP_INTERCEPTORS,
                     useFactory: providerCirclecrmAuthenticationHttpInterceptor
+                },
+                {
+                    deps: [
+                        Injector
+                    ],
+                    multi: true,
+                    provide: CIRCLECRM_MENU_FILTER,
+                    useFactory: providerCirclecrmMenuFilter
                 }
             ]
         };
@@ -49,4 +68,8 @@ export class CirclecrmAuthModule {
 export function providerCirclecrmAuthenticationHttpInterceptor(injector: Injector):
     CirclecrmAuthenticationHttpInterceptor {
     return new CirclecrmAuthenticationHttpInterceptor(injector);
+}
+
+export function providerCirclecrmMenuFilter(injector: Injector): CirclecrmRoleMenuFilter {
+    return new CirclecrmRoleMenuFilter(injector);
 }

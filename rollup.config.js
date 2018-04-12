@@ -25,6 +25,7 @@ export default {
         '@angular/common/http',
         '@angular/forms',
         '@angular/router',
+        '@circlecrm/circlecrm-core',
         'rxjs/Observable',
         'rxjs/operators',
         'ngx-webstorage',

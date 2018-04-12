@@ -7,6 +7,7 @@ import {CirclecrmAuthenticationGuard} from "../../src/circlecrm-authentication.g
 import {CirclecrmAuthenticationHttpInterceptor} from "../../src/circlecrm-authentication.http.interceptor";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HTTP_INTERCEPTORS, HttpInterceptor} from "@angular/common/http";
+import {CirclecrmAuthenticationRoleGuard} from "../../src/circlecrm-authentication-role.guard";
 
 describe('CirclecrmAuthModule', () => {
 
@@ -41,6 +42,10 @@ describe('CirclecrmAuthModule', () => {
             .filter((hi) => hi instanceof CirclecrmAuthenticationHttpInterceptor);
 
         expect(interceptor).not.toBeNull();
+    });
+
+    it('provides CirclecrmAuthenticationRoleGuard', () => {
+        expect(TestBed.get(CirclecrmAuthenticationRoleGuard)).toBeDefined();
     });
 
 });

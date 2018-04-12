@@ -147,6 +147,40 @@ export class CirclecrmAuthenticationService {
     }
 
     /**
+     * Checks if logged user has one of the input roles
+     *
+     * @param {string[]} roles
+     * @returns {boolean}
+     */
+    public check(roles: string[]): boolean {
+
+        if (!this.isAuthenticated() || !this.user) {
+            return false;
+        }
+
+        return (this.user.role || [])
+            .filter((role) => roles.includes((role.ref || role.name) + ''))
+            .length > 0;
+    }
+
+    /**
+     * Checks if logged user has all input roles
+     *
+     * @param {string[]} roles
+     * @returns {boolean}
+     */
+    public checkAll(roles: string[]): boolean {
+
+        if (!this.isAuthenticated() || !this.user) {
+            return false;
+        }
+
+        return (this.user.role || [])
+            .filter((role) => roles.includes((role.ref || role.name) + ''))
+            .length === roles.length;
+    }
+
+    /**
      * Removes stored token from persist storage and clear
      * current authenticated state
      */
