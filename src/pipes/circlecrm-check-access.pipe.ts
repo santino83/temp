@@ -1,5 +1,5 @@
 import {Injector, Pipe, PipeTransform} from '@angular/core';
-import {CirclecrmAuthenticationService} from "./circlecrm-authentication.service";
+import {CirclecrmAuthenticationService} from "../services/circlecrm-authentication.service";
 
 @Pipe({
     name: 'PipeCcCheckAccess'

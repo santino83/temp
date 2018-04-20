@@ -1,6 +1,6 @@
 import {Injectable, Injector} from '@angular/core';
 import {IFilter, IMenuItem} from '@circlecrm/circlecrm-core';
-import {CirclecrmAuthenticationService} from "./circlecrm-authentication.service";
+import {CirclecrmAuthenticationService} from "../services/circlecrm-authentication.service";
 
 @Injectable()
 export class CirclecrmRoleMenuFilter implements IFilter<IMenuItem> {

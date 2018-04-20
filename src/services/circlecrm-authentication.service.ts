@@ -7,7 +7,7 @@ import {
     IDecodedToken,
     ISsoToken,
     ISsoUser
-} from './circlecrm-auth.types';
+} from '../types/circlecrm-auth.types';
 import 'rxjs/add/operator/map';
 
 // jwt-decode doesn't support "import" statement
@@ -141,6 +141,11 @@ export class CirclecrmAuthenticationService {
 
         if (req.url === loginApiURL || !this.isAuthenticated()) {
             return req;
+        }
+
+        if (req.url.startsWith(this.config.remoteVAuthURL + '') && this.user !== null && this.user.attributes) {
+            const vptToken = btoa(this.user.username + ':' + this.user.attributes.token);
+            return req.clone({setHeaders: {Authorization: 'VPT-AUTH ' + vptToken}});
         }
 
         return req.clone({setHeaders: {Authorization: 'JWT-SSO-TOKEN ' + this.rawToken}});

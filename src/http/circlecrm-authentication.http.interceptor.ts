@@ -1,7 +1,7 @@
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Injector} from '@angular/core';
-import {CirclecrmAuthenticationService} from "./circlecrm-authentication.service";
+import {CirclecrmAuthenticationService} from "../services/circlecrm-authentication.service";
 import "rxjs/add/operator/catch";
 
 export class CirclecrmAuthenticationHttpInterceptor implements HttpInterceptor {

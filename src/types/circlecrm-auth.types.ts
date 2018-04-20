@@ -117,6 +117,7 @@ export interface IAuthenticationModuleConfig {
     logoutURL?: string;
     apiLoginPath?: string;
     loginPath?: string;
+    remoteVAuthURL?: string;
 }
 
 export const AUTHMODULE_CONFIG: InjectionToken<IAuthenticationModuleConfig> =

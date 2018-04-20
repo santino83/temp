@@ -1,8 +1,8 @@
-import {CirclecrmAuthModule} from "../../src/circlecrm-auth.module";
+import {CirclecrmAuthModule} from "../../src/modules/circlecrm-auth.module";
 import {TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {CirclecrmAuthenticationService} from "../../src/circlecrm-authentication.service";
+import {CirclecrmAuthenticationService} from "../../src/services/circlecrm-authentication.service";
 
 describe('CirclecrmAuthenticationService', () =>{
 

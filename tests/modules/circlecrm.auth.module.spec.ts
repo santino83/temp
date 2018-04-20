@@ -1,13 +1,13 @@
 import {TestBed} from "@angular/core/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {CirclecrmAuthModule} from "../../src/circlecrm-auth.module";
-import {AUTHMODULE_CONFIG} from "../../src/circlecrm-auth.types";
-import {CirclecrmAuthenticationService} from "../../src/circlecrm-authentication.service";
-import {CirclecrmAuthenticationGuard} from "../../src/circlecrm-authentication.guard";
-import {CirclecrmAuthenticationHttpInterceptor} from "../../src/circlecrm-authentication.http.interceptor";
+import {CirclecrmAuthModule} from "../../src/modules/circlecrm-auth.module";
+import {AUTHMODULE_CONFIG} from "../../src/types/circlecrm-auth.types";
+import {CirclecrmAuthenticationService} from "../../src/services/circlecrm-authentication.service";
+import {CirclecrmAuthenticationGuard} from "../../src/guards/circlecrm-authentication.guard";
+import {CirclecrmAuthenticationHttpInterceptor} from "../../src/http/circlecrm-authentication.http.interceptor";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HTTP_INTERCEPTORS, HttpInterceptor} from "@angular/common/http";
-import {CirclecrmAuthenticationRoleGuard} from "../../src/circlecrm-authentication-role.guard";
+import {CirclecrmAuthenticationRoleGuard} from "../../src/guards/circlecrm-authentication-role.guard";
 
 describe('CirclecrmAuthModule', () => {
 

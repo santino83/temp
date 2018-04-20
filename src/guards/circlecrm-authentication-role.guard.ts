@@ -1,7 +1,7 @@
 import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
-import {CirclecrmAuthenticationService} from "./circlecrm-authentication.service";
+import {CirclecrmAuthenticationService} from "../services/circlecrm-authentication.service";
 
 @Injectable()
 export class CirclecrmAuthenticationRoleGuard implements CanActivate, CanActivateChild {
