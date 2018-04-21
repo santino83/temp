@@ -8,6 +8,7 @@ import {
     CirclecrmRolesWidget,
     CirclecrmUnitsWidget
 } from "../widgets/index";
+import {CirclecrmCoreModule} from "@circlecrm/circlecrm-core";
 
 @NgModule({
     declarations: [
@@ -37,6 +38,9 @@ import {
         CirclecrmInvitationsWidget,
         CirclecrmRolesWidget,
         CirclecrmUnitsWidget
+    ],
+    imports: [
+        CirclecrmCoreModule
     ]
 })
 export class CirclecrmAuthCommonModule {

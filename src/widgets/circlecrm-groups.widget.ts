@@ -68,7 +68,7 @@ import {CirclecrmGroupService} from '../services/circlecrm-group.service';
                         <td class="text-left">{{ entity.name }}</td>
                         <td class="text-center">
               <span *ngIf="getUnitIdFromEntity(entity)"
-                    dirCcmResolveUnit [entityId]="getUnitIdFromEntity(entity)"
+                    dirCircleCRMResolveUnit [entityId]="getUnitIdFromEntity(entity)"
                     class="label label-info btn-sm"></span>
                         </td>
                         <td class="text-right">

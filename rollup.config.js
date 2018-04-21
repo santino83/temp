@@ -7,7 +7,8 @@ const globals = {
     '@angular/forms': 'ng.forms',
     'rxjs/Observable': 'Rx',
     'rxjs/Observer': 'Rx',
-    'rxjs/add/operator/map': "Rx"
+    'rxjs/add/operator/map': "Rx",
+    'rxjs/BehaviorSubject': 'Rx'
 };
 
 export default {
@@ -28,6 +29,7 @@ export default {
         '@circlecrm/circlecrm-core',
         'rxjs/Observable',
         'rxjs/operators',
+        'rxjs/BehaviorSubject',
         'ngx-webstorage',
         'jwt-decode'
     ],

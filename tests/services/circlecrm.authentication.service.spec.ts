@@ -4,7 +4,10 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {CirclecrmAuthenticationService} from "../../src/services/circlecrm-authentication.service";
 
-describe('CirclecrmAuthenticationService', () =>{
+// jwt-decode doesn't support "import" statement
+const jwt_decode = require('jwt-decode');
+
+describe('CirclecrmAuthenticationService::jwt_decode', () => {
 
     const digest = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjMzOTAwM' +
         'jUsImp0aSI6IkhcL0UrejdmcGRqc09ZcVdieFhXQ0ZGK2RtNjNTQ2x3SzE1UmI3XC9yYklG' +
@@ -95,24 +98,8 @@ describe('CirclecrmAuthenticationService', () =>{
         '3KzAwOjAwXCIsXCJ1cGRhdGVkXCI6XCIyMDE2LTAyLTExVDE4OjA2OjE3KzAwOjAwXCJ9XSxcInVzZXJ' +
         'uYW1lXCI6XCJ0ZXN0QHZvaXB0ZWNoLml0XCJ9In0.XYtCQlKLDIBfnYaFIImnRtYLSHicqDkOrdj9S1op2zU';
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                RouterTestingModule,
-                CirclecrmAuthModule.forRoot({
-                    redirectURL: 'http://localhost:4200',
-                    remoteBaseURL: 'https://foo.ext'
-                })
-            ]
-        });
-    });
-
     it('should decode token', () => {
-       const authService: CirclecrmAuthenticationService = TestBed.get(CirclecrmAuthenticationService);
-       expect(authService.authenticate(digest)).not.toBeNull();
-       const token = authService.token;
-       expect(token).not.toBeNull();
+        expect(jwt_decode(digest)).not.toBeNull();
     });
 
 });

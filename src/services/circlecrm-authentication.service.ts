@@ -9,6 +9,8 @@ import {
     ISsoUser
 } from '../types/circlecrm-auth.types';
 import 'rxjs/add/operator/map';
+import {Observable} from "rxjs/Observable";
+import {CirclecrmAuthenticationActHelper} from "../utils/circlecrm-authentication-act.helper";
 
 // jwt-decode doesn't support "import" statement
 const jwt_decode = require('jwt-decode');
@@ -21,12 +23,14 @@ export class CirclecrmAuthenticationService {
 
     private ssoToken: ISsoToken | null = null;
     private config: IAuthenticationModuleConfig;
+    private actHelper: CirclecrmAuthenticationActHelper;
 
     public constructor(@Inject(AUTHMODULE_CONFIG) configToken: any,
                        private http: HttpClient,
                        private localStorage: LocalStorageService) {
 
         this.config = configToken as IAuthenticationModuleConfig;
+        this.actHelper = new CirclecrmAuthenticationActHelper(this.config);
         this.load();
     }
 
@@ -69,7 +73,7 @@ export class CirclecrmAuthenticationService {
      * @param {string} secret
      * @returns {Promise<ISsoUser>}
      */
-    public login(username: string, secret: string): Promise<ISsoUser> {
+    public login(username: string, secret: string): Observable<ISsoUser> {
 
         this.clearToken();
         const hash = btoa(username + ':' + secret);
@@ -94,7 +98,7 @@ export class CirclecrmAuthenticationService {
                 }
 
                 return this.user;
-            }).toPromise<ISsoUser>();
+            });
     }
 
     /**
@@ -112,6 +116,8 @@ export class CirclecrmAuthenticationService {
         if (this.isAuthenticated() && this.user) {
             return this.user;
         }
+
+        // start authentication
 
         const loginUrl = this.config.remoteBaseURL + '/' + this.config.loginPath;
         const url = loginUrl + (loginUrl.indexOf('?') > -1 ? '&' : '?')
@@ -137,18 +143,31 @@ export class CirclecrmAuthenticationService {
      */
     public ensureCredentialsInRequest(req: HttpRequest<any>): HttpRequest<any> {
 
-        const loginApiURL = [this.config.remoteBaseURL, this.config.apiLoginPath].join('/');
-
-        if (req.url === loginApiURL || !this.isAuthenticated()) {
+        if (!this.isAuthenticated() || !this.actHelper.shouldActOn(req.url)) {
             return req;
         }
 
-        if (req.url.startsWith(this.config.remoteVAuthURL + '') && this.user !== null && this.user.attributes) {
-            const vptToken = btoa(this.user.username + ':' + this.user.attributes.token);
-            return req.clone({setHeaders: {Authorization: 'VPT-AUTH ' + vptToken}});
+        return this.actHelper.actOn(req, this.user!, this.rawToken!);
+    }
+
+    public refreshToken(): Observable<boolean> {
+        if (this.token === null) {
+            // no previous token in session
+            // restart authenticate process
+            this.authenticate();
         }
 
-        return req.clone({setHeaders: {Authorization: 'JWT-SSO-TOKEN ' + this.rawToken}});
+        const username = this.user!.username!;
+        const apiToken = this.user!.attributes!.token!;
+
+        return this.login(username, apiToken)
+            .switchMap((user) => {
+                if (user) {
+                    return Observable.of(true);
+                }
+
+                return Observable.of(false);
+            });
     }
 
     /**

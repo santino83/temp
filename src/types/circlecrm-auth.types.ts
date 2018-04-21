@@ -118,7 +118,10 @@ export interface IAuthenticationModuleConfig {
     apiLoginPath?: string;
     loginPath?: string;
     remoteVAuthURL?: string;
+    actsOnUrl?: RegExp[];
 }
 
 export const AUTHMODULE_CONFIG: InjectionToken<IAuthenticationModuleConfig> =
     new InjectionToken<IAuthenticationModuleConfig>('AUTHMODULE_CONFIG');
+
+export const CIRCLECRM_URI_NS = /http(s)?\:\/\/(.*)\.circlecrm\.it.*/;

@@ -1,15 +1,14 @@
 import {Injector, ModuleWithProviders, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
-import {CirclecrmAuthenticationService} from "../services/circlecrm-authentication.service";
-import {CirclecrmAuthenticationGuard} from "../guards/circlecrm-authentication.guard";
-import {CirclecrmAuthenticationHttpInterceptor} from "../http/circlecrm-authentication.http.interceptor";
 import {Ng2Webstorage} from "ngx-webstorage";
 import {CIRCLECRM_MENU_FILTER} from "@circlecrm/circlecrm-core";
+import {AUTHMODULE_CONFIG, CIRCLECRM_URI_NS, IAuthenticationModuleConfig} from "../types/index";
+import {CirclecrmAuthenticationGuard, CirclecrmAuthenticationRoleGuard} from "../guards/index";
+import {CirclecrmAuthenticationHttpInterceptor} from "../http/circlecrm-authentication.http.interceptor";
 import {CirclecrmRoleMenuFilter} from "../filters/circlecrm-role-menu.filter";
-import {CirclecrmAuthenticationRoleGuard} from "../guards/circlecrm-authentication-role.guard";
 import {CirclecrmAuthCommonModule} from "./circlecrm-auth.common.module";
 import {
+    CirclecrmAuthenticationService,
     CirclecrmCompanyService,
     CirclecrmGroupService,
     CirclecrmInvitationService,
@@ -19,6 +18,7 @@ import {
 } from "../services/index";
 
 export const defaultConfig = {
+    actsOnUrl: [CIRCLECRM_URI_NS],
     apiLoginPath: 'api/authenticates',
     loginPath: 'sso/vauth/fwd',
     logoutURL: 'https://webapp.circlecrm.it/app/logout',
@@ -28,6 +28,9 @@ export const defaultConfig = {
 };
 
 @NgModule({
+    exports: [
+        CirclecrmAuthCommonModule
+    ],
     imports: [
         HttpClientModule,
         Ng2Webstorage,
@@ -42,7 +45,7 @@ export class CirclecrmAuthModule {
             providers: [
                 {
                     provide: AUTHMODULE_CONFIG,
-                    useValue: Object.assign(defaultConfig, config)
+                    useValue: Object.assign({}, defaultConfig, config)
                 },
                 // services
                 CirclecrmAuthenticationService,

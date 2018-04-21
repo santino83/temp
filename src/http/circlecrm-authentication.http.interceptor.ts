@@ -3,10 +3,13 @@ import {Observable} from 'rxjs/Observable';
 import {Injector} from '@angular/core';
 import {CirclecrmAuthenticationService} from "../services/circlecrm-authentication.service";
 import "rxjs/add/operator/catch";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 export class CirclecrmAuthenticationHttpInterceptor implements HttpInterceptor {
 
     private authService: CirclecrmAuthenticationService | null = null;
+    private isRefreshingToken: boolean = false;
+    private refreshStatusSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     public constructor(private injector: Injector) {
     }
@@ -21,13 +24,49 @@ export class CirclecrmAuthenticationHttpInterceptor implements HttpInterceptor {
                             this.handle400Error(error);
                             break;
                         case 401:
-                            this.getAuthService().authenticate();
-                            break;
+                            return this.handle401Error(req, next);
                     }
                 }
 
                 return Observable.throw(error);
             });
+    }
+
+    private handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+        if (!this.isRefreshingToken) {
+            this.isRefreshingToken = true;
+
+            // Reset here so that the following requests wait until the token
+            // comes back from the refreshToken call.
+            this.refreshStatusSubject.next(false);
+
+            return this.getAuthService().refreshToken()
+                .switchMap((result) => {
+                    if (result) {
+                        this.refreshStatusSubject.next(true);
+                        return next.handle(this.getAuthService().ensureCredentialsInRequest(req));
+                    }
+
+                    return Observable.throw('Unknown error');
+                })
+                .catch((error) => {
+                    this.getAuthService().authenticate();
+                    return Observable.throw(error);
+                })
+                .finally(() => {
+                    this.isRefreshingToken = false;
+                });
+
+        } else {
+            return this.refreshStatusSubject
+                .filter((status) => status === true)
+                .take(1)
+                .switchMap(() => {
+                    return next.handle(this.getAuthService().ensureCredentialsInRequest(req));
+                });
+        }
+
     }
 
     private handle400Error(error: HttpErrorResponse): any {

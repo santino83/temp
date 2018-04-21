@@ -63,7 +63,7 @@ export class CirclecrmCompanyWidget implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.companyService.onLoading.subscribe((loading) => {
+        this.companyService.onLoading.subscribe((loading: boolean) => {
             this.loading = loading;
             this.refreshBtnOver = false;
             if (!loading) {
