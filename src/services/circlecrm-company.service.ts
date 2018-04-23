@@ -1,8 +1,7 @@
 import {EventEmitter, Inject, Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ICcCompany} from '../types/circlecrm-auth-other.types';
-import {CirclecrmAuthUtils} from '../utils/circlecrm-auth.utils';
-import {HTTP_BACKGROUND_TASK_HEADER} from '@circlecrm/circlecrm-core';
+import {create_headers, merge_url_fragments} from '@circlecrm/circlecrm-core';
 import {Observable} from 'rxjs/Observable';
 import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
 
@@ -35,8 +34,8 @@ export class CirclecrmCompanyService {
     }
 
     protected doGet(background?: boolean): Promise<ICcCompany> {
-        const url = CirclecrmAuthUtils.mergeUrlFragments(this.config.remoteVAuthURL!, 'company');
-        const headers = new HttpHeaders().set(HTTP_BACKGROUND_TASK_HEADER, background ? 'true' : 'false');
+        const url = merge_url_fragments(this.config.remoteVAuthURL!, 'company');
+        const headers = create_headers(background);
         this.onLoading.next(true);
         return this.http.get<ICcCompany>(url, {headers})
             .map((res: ICcCompany) => {

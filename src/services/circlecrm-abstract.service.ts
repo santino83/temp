@@ -1,7 +1,13 @@
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {ICcEntitiesList, IHateoasEntity, IServiceAction, ServiceActionType} from '../types/circlecrm-auth-other.types';
-import {CirclecrmAuthUtils} from '../utils/circlecrm-auth.utils';
-import {AlertResultType, AlertService, HTTP_BACKGROUND_TASK_HEADER, IAlertAskAction} from '@circlecrm/circlecrm-core';
+import {
+    AlertResultType,
+    AlertService,
+    create_headers,
+    IAlertAskAction,
+    json_decode,
+    merge_url_fragments
+} from '@circlecrm/circlecrm-core';
 import {Observable} from 'rxjs/Observable';
 import {EventEmitter} from '@angular/core';
 import {IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
@@ -179,8 +185,9 @@ export abstract class CirclecrmAbstractService<T extends IHateoasEntity> {
     }
 
     protected doDelete(id: string, background?: boolean): Promise<boolean> {
-        const url = CirclecrmAuthUtils.mergeUrlFragments(this.config.remoteVAuthURL!, this.remoteEndpoint, id);
-        const headers = new HttpHeaders().set(HTTP_BACKGROUND_TASK_HEADER, background ? 'true' : 'false');
+        const url = merge_url_fragments(this.config.remoteVAuthURL!, this.remoteEndpoint, id);
+        const headers = create_headers(background);
+
         return this.http.delete(url, {headers, observe: 'response'})
             .map((res) => {
                 return res.ok;
@@ -200,7 +207,7 @@ export abstract class CirclecrmAbstractService<T extends IHateoasEntity> {
         const headers = this.getHeaders(background);
         return this.http.get(url, {observe: 'response', responseType: 'text', headers})
             .map((res: HttpResponse<string>) => {
-                return CirclecrmAuthUtils.decode<A>(res.body || '');
+                return json_decode<A>(res.body || '');
             });
     }
 
@@ -247,11 +254,11 @@ export abstract class CirclecrmAbstractService<T extends IHateoasEntity> {
     }
 
     protected getUrl(...urlFragments: string[]): string {
-        return CirclecrmAuthUtils.mergeUrlFragments(this.config.remoteVAuthURL!, ...urlFragments);
+        return merge_url_fragments(this.config.remoteVAuthURL!, ...urlFragments);
     }
 
     protected getHeaders(background?: boolean): HttpHeaders {
-        return new HttpHeaders().set(HTTP_BACKGROUND_TASK_HEADER, background || false ? 'true' : 'false');
+        return create_headers(background);
     }
 
     protected appendLink(id: string, endpoint: string, headers: HttpHeaders): HttpHeaders {

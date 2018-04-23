@@ -11,6 +11,7 @@ import {
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import {CirclecrmAuthenticationActHelper} from "../utils/circlecrm-authentication-act.helper";
+import {HTTP_BACKGROUND_TASK_HEADER, json_decode} from "@circlecrm/circlecrm-core";
 
 // jwt-decode doesn't support "import" statement
 const jwt_decode = require('jwt-decode');
@@ -73,11 +74,12 @@ export class CirclecrmAuthenticationService {
      * @param {string} secret
      * @returns {Promise<ISsoUser>}
      */
-    public login(username: string, secret: string): Observable<ISsoUser> {
+    public login(username: string, secret: string, background?: boolean): Observable<ISsoUser> {
 
         this.clearToken();
         const hash = btoa(username + ':' + secret);
-        const headers = new HttpHeaders({Authorization: 'JWT-SSO-LOGIN ' + hash});
+        const headers = new HttpHeaders({Authorization: 'JWT-SSO-LOGIN ' + hash})
+            .set(HTTP_BACKGROUND_TASK_HEADER, background || false ? 'true' : 'false');
 
         return this.http.post<ISsoUser>(
             this.config.remoteBaseURL + '/' + this.config.apiLoginPath,
@@ -137,7 +139,7 @@ export class CirclecrmAuthenticationService {
     }
 
     /**
-     * Adds authentication token in request. Skips API_LOGIN request
+     * Adds authentication token in request
      * @param {HttpRequest<any>} req
      * @returns {HttpRequest<any>}
      */
@@ -160,7 +162,7 @@ export class CirclecrmAuthenticationService {
         const username = this.user!.username!;
         const apiToken = this.user!.attributes!.token!;
 
-        return this.login(username, apiToken)
+        return this.login(username, apiToken, true)
             .switchMap((user) => {
                 if (user) {
                     return Observable.of(true);
@@ -233,9 +235,7 @@ export class CirclecrmAuthenticationService {
                 createdAt: rawToken.iat,
                 expiresAt: rawToken.exp,
                 notBefore: rawToken.nbf,
-                user: JSON.parse(rawToken.data, (key, value) => {
-                    return (key === 'created' || key === 'updated') ? new Date(value) : value;
-                })
+                user: json_decode<ISsoUser>(rawToken.data)
             } as ISsoToken;
         } catch (e) {
             return null;

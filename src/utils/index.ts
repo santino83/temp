@@ -1,1 +1,1 @@
-export * from './circlecrm-auth.utils';
+export * from './circlecrm-authentication-act.helper';
