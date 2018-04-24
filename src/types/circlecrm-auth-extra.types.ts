@@ -93,7 +93,6 @@ export interface IServiceAction<T extends IHateoasEntity> {
     extras?: { [key: string]: any };
 }
 
-
 export interface ISimpleInvitation {
     people: ISimpleInvitationPerson[];
     groups: ICcGroup[];

@@ -1,12 +1,12 @@
 import {Inject, Injectable} from '@angular/core';
-import {ICcUnit, IHateoasLink} from '../types/circlecrm-auth-other.types';
+import {ICcUnit, IHateoasLink} from '../types/circlecrm-auth-extra.types';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {CirclecrmAbstractService} from './circlecrm-abstract.service';
+import {CirclecrmAuthAbstractService} from './circlecrm-auth-abstract.service';
 import {AlertService} from '@circlecrm/circlecrm-core';
 import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
 
 @Injectable()
-export class CirclecrmUnitService extends CirclecrmAbstractService<ICcUnit> {
+export class CirclecrmUnitService extends CirclecrmAuthAbstractService<ICcUnit> {
 
     public constructor(@Inject(AUTHMODULE_CONFIG) configToken: any, http: HttpClient, alertService: AlertService) {
         super(configToken as IAuthenticationModuleConfig, 'units', http, alertService);

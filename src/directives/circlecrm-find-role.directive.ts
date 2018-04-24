@@ -1,7 +1,7 @@
 import {Directive, ElementRef, Injector} from '@angular/core';
-import {ICcRole, IServiceAction} from '../types/circlecrm-auth-other.types';
+import {ICcRole, IServiceAction} from '../types/circlecrm-auth-extra.types';
 import {CirclecrmAbstractFindDirective} from './circlecrm-abstract-find.directive';
-import {CirclecrmAbstractService} from '../services/circlecrm-abstract.service';
+import {CirclecrmAuthAbstractService} from '../services/circlecrm-auth-abstract.service';
 import {CirclecrmRoleService} from '../services/circlecrm-role.service';
 
 @Directive({
@@ -17,7 +17,7 @@ export class CirclecrmFindRoleDirective extends CirclecrmAbstractFindDirective<I
     this.el.nativeElement.innerHTML = action.payload![0].name;
   }
 
-  protected getService(): CirclecrmAbstractService<ICcRole> {
+  protected getService(): CirclecrmAuthAbstractService<ICcRole> {
     return this.injector.get(CirclecrmRoleService);
   }
 

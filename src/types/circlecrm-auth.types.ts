@@ -1,5 +1,14 @@
 import {InjectionToken} from '@angular/core';
 
+export const AUTHMODULE_CONFIG: InjectionToken<IAuthenticationModuleConfig> =
+    new InjectionToken<IAuthenticationModuleConfig>('AUTHMODULE_CONFIG');
+
+export const CIRCLECRM_URI_NS = /http(s)?\:\/\/(.*)\.circlecrm\.it.*/;
+
+export const CIRCLECRM_PLATFORM_ADMIN_ROLE = 'CIRCLECRM_PLATFORM_ADMIN';
+
+export const CIRCLECRM_PLATFORM_USER_ROLE = 'CIRCLECRM_PLATFORM_USER';
+
 export interface IDecodedToken {
     iat: number;
     nbf: number;
@@ -111,6 +120,12 @@ export interface ISsoToken {
     expiresAt: number;
 }
 
+export interface ISsoApp {
+    name: string;
+    url: string;
+    order: number;
+}
+
 export interface IAuthenticationModuleConfig {
     remoteBaseURL: string;
     redirectURL: string;
@@ -120,8 +135,3 @@ export interface IAuthenticationModuleConfig {
     remoteVAuthURL?: string;
     actsOnUrl?: RegExp[];
 }
-
-export const AUTHMODULE_CONFIG: InjectionToken<IAuthenticationModuleConfig> =
-    new InjectionToken<IAuthenticationModuleConfig>('AUTHMODULE_CONFIG');
-
-export const CIRCLECRM_URI_NS = /http(s)?\:\/\/(.*)\.circlecrm\.it.*/;

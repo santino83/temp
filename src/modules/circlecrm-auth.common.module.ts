@@ -6,9 +6,11 @@ import {
     CirclecrmGroupsWidget,
     CirclecrmInvitationsWidget,
     CirclecrmRolesWidget,
-    CirclecrmUnitsWidget
+    CirclecrmUnitsWidget,
+    CirclecrmUsersWidget
 } from "../widgets/index";
 import {CirclecrmCoreModule} from "@circlecrm/circlecrm-core";
+import {CirclecrmContactsCommonModule} from "./circlecrm-contacts-common.module";
 
 @NgModule({
     declarations: [
@@ -23,7 +25,8 @@ import {CirclecrmCoreModule} from "@circlecrm/circlecrm-core";
         CirclecrmGroupsWidget,
         CirclecrmInvitationsWidget,
         CirclecrmRolesWidget,
-        CirclecrmUnitsWidget
+        CirclecrmUnitsWidget,
+        CirclecrmUsersWidget
     ],
     exports: [
         // pipes
@@ -37,10 +40,12 @@ import {CirclecrmCoreModule} from "@circlecrm/circlecrm-core";
         CirclecrmGroupsWidget,
         CirclecrmInvitationsWidget,
         CirclecrmRolesWidget,
-        CirclecrmUnitsWidget
+        CirclecrmUnitsWidget,
+        CirclecrmUsersWidget
     ],
     imports: [
-        CirclecrmCoreModule
+        CirclecrmCoreModule,
+        CirclecrmContactsCommonModule
     ]
 })
 export class CirclecrmAuthCommonModule {

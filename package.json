@@ -1,6 +1,6 @@
 {
   "name": "@circlecrm/circlecrm-auth",
-  "version": "1.0.0-beta.3d",
+  "version": "1.0.0-beta.3e",
   "description": "CircleCRM Core Component",
   "main": "./bundles/circlecrm-auth.umd.js",
   "module": "./modules/circlecrm-auth.es5.js",
@@ -43,11 +43,13 @@
     "@angular/router": ">= 4.4.6",
     "@circlecrm/circlecrm-core": ">= 1.0.0-beta.3",
     "jwt-decode": ">= 2.2.0",
+    "ngx-infinite-scroll": ">= 0.8.4",
     "ngx-webstorage": ">= 1.8.0",
     "rxjs": "> 5.5.0"
   },
   "dependencies": {
-    "jwt-decode": "2.2.0"
+    "jwt-decode": "2.2.0",
+    "ngx-infinite-scroll": "^0.8.4"
   },
   "devDependencies": {
     "@angular/animations": "4.4.6",

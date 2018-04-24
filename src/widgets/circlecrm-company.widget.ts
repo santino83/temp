@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {CirclecrmCompanyService} from '../services/circlecrm-company.service';
-import {ICcCompany} from '../types/circlecrm-auth-other.types';
+import {ICcCompany} from '../types/circlecrm-auth-extra.types';
 
 @Component({
     encapsulation: ViewEncapsulation.None,

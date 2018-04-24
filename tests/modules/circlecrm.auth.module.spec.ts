@@ -8,6 +8,7 @@ import {CirclecrmAuthenticationHttpInterceptor} from "../../src/http/circlecrm-a
 import {RouterTestingModule} from "@angular/router/testing";
 import {HTTP_INTERCEPTORS, HttpInterceptor} from "@angular/common/http";
 import {CirclecrmAuthenticationRoleGuard} from "../../src/guards/circlecrm-authentication-role.guard";
+import {CirclecrmContactsCommonModule} from "../../src/modules";
 
 describe('CirclecrmAuthModule', () => {
 

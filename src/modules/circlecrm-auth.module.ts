@@ -8,6 +8,7 @@ import {CirclecrmAuthenticationHttpInterceptor} from "../http/circlecrm-authenti
 import {CirclecrmRoleMenuFilter} from "../filters/circlecrm-role-menu.filter";
 import {CirclecrmAuthCommonModule} from "./circlecrm-auth.common.module";
 import {
+    CirclecrmAppsService,
     CirclecrmAuthenticationService,
     CirclecrmCompanyService,
     CirclecrmGroupService,
@@ -55,6 +56,7 @@ export class CirclecrmAuthModule {
                 CirclecrmRoleService,
                 CirclecrmUnitService,
                 CirclecrmUserService,
+                CirclecrmAppsService,
                 // guards
                 CirclecrmAuthenticationGuard,
                 CirclecrmAuthenticationRoleGuard,

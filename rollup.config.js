@@ -8,7 +8,8 @@ const globals = {
     'rxjs/Observable': 'Rx',
     'rxjs/Observer': 'Rx',
     'rxjs/add/operator/map': "Rx",
-    'rxjs/BehaviorSubject': 'Rx'
+    'rxjs/BehaviorSubject': 'Rx',
+    'rxjs/Subject': 'Rx'
 };
 
 export default {
@@ -30,8 +31,10 @@ export default {
         'rxjs/Observable',
         'rxjs/operators',
         'rxjs/BehaviorSubject',
+        'rxjs/Subject',
         'ngx-webstorage',
-        'jwt-decode'
+        'jwt-decode',
+        'ngx-infinite-scroll'
     ],
     globals: globals,
     onwarn: () => {return}

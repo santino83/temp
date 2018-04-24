@@ -1,6 +1,6 @@
 import {ElementRef, Injector, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {IHateoasEntity, IServiceAction, ServiceActionType} from '../types/circlecrm-auth-other.types';
-import {CirclecrmAbstractService} from '../services/circlecrm-abstract.service';
+import {IHateoasEntity, IServiceAction, ServiceActionType} from '../types/circlecrm-auth-extra.types';
+import {CirclecrmAuthAbstractService} from '../services/circlecrm-auth-abstract.service';
 
 export abstract class CirclecrmAbstractFindDirective<T extends IHateoasEntity> implements OnChanges {
 
@@ -36,6 +36,6 @@ export abstract class CirclecrmAbstractFindDirective<T extends IHateoasEntity> i
 
     protected abstract onAction(action: IServiceAction<T>): void;
 
-    protected abstract getService(): CirclecrmAbstractService<T>;
+    protected abstract getService(): CirclecrmAuthAbstractService<T>;
 
 }
