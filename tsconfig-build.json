@@ -26,6 +26,6 @@
         "annotateForClosureCompiler": true,
         "strictMetadataEmit": true,
         "flatModuleOutFile": "circlecrm-auth.js",
-        "flatModuleId": "circlecrm-auth"
+        "flatModuleId": "@circlecrm/circlecrm-auth"
     }
 }
