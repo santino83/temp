@@ -1,4 +1,4 @@
-import {Injector, ModuleWithProviders, NgModule} from '@angular/core';
+import {InjectionToken, Injector, ModuleWithProviders, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {Ng2Webstorage} from "ngx-webstorage";
 import {CIRCLECRM_MENU_FILTER} from "@circlecrm/circlecrm-core";
@@ -18,15 +18,7 @@ import {
     CirclecrmUserService
 } from "../services/index";
 
-export const defaultConfig = {
-    actsOnUrl: [CIRCLECRM_URI_NS],
-    apiLoginPath: 'api/authenticates',
-    loginPath: 'sso/vauth/fwd',
-    logoutURL: 'https://webapp.circlecrm.it/app/logout',
-    redirectURL: 'https://webapp.circlecrm.it/u',
-    remoteBaseURL: 'https://webapp.circlecrm.it',
-    remoteVAuthURL: 'https://auth.circlecrm.it/api/v1'
-};
+export const OVERRIDE_AUTHMODULE_CONFIG = new InjectionToken<IAuthenticationModuleConfig>('OVERRIDE_AUTHMODULE_CONFIG');
 
 @NgModule({
     exports: [
@@ -45,8 +37,15 @@ export class CirclecrmAuthModule {
             ngModule: CirclecrmAuthModule,
             providers: [
                 {
+                    provide: OVERRIDE_AUTHMODULE_CONFIG,
+                    useValue: config
+                },
+                {
+                    deps: [
+                        OVERRIDE_AUTHMODULE_CONFIG
+                    ],
                     provide: AUTHMODULE_CONFIG,
-                    useValue: Object.assign({}, defaultConfig, config)
+                    useFactory: providerCirclecrmAuthModuleConfig
                 },
                 // services
                 CirclecrmAuthenticationService,
@@ -89,4 +88,19 @@ export function providerCirclecrmAuthenticationHttpInterceptor(injector: Injecto
 
 export function providerCirclecrmMenuFilter(injector: Injector): CirclecrmRoleMenuFilter {
     return new CirclecrmRoleMenuFilter(injector);
+}
+
+export function providerCirclecrmAuthModuleConfig(config: any): IAuthenticationModuleConfig {
+    const result = Object.assign({
+        actsOnUrl: [],
+        apiLoginPath: 'api/authenticates',
+        loginPath: 'sso/vauth/fwd',
+        logoutURL: 'https://webapp.circlecrm.it/app/logout',
+        redirectURL: 'https://webapp.circlecrm.it/u',
+        remoteBaseURL: 'https://webapp.circlecrm.it',
+        remoteVAuthURL: 'https://auth.circlecrm.it/api/v1'
+    }, config) as IAuthenticationModuleConfig;
+
+    result.actsOnUrl!.push(CIRCLECRM_URI_NS);
+    return result;
 }
