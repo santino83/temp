@@ -44,6 +44,19 @@ export class CirclecrmProfileService {
             }).toPromise();
     }
 
+    public silentUpdate(profile: IProfile): Promise<boolean> | boolean {
+        if (!this.isPersisted(profile)) {
+            // not versioned profile
+            return false;
+        }
+
+        return new Promise<boolean>(async (resolve) => {
+            const result = await wrap(this.doUpdate(profile, true).toPromise());
+            const hasResult: boolean = result.success && this.isPersisted(result.data!);
+            resolve(hasResult);
+        });
+    }
+
     public update(profile: IProfile, background?: boolean): Promise<boolean> | boolean {
 
         if (!this.isPersisted(profile)) {

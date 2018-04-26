@@ -69,6 +69,19 @@ export class CirclecrmContactService {
 
     }
 
+    public silentUpdate(contact: IContact): Promise<boolean> | boolean {
+        if (!this.isPersisted(contact)) {
+            // not versioned contact, use save instead
+            return false;
+        }
+
+        return new Promise<boolean>(async (resolve) => {
+            const result = await wrap(this.doUpdate(contact, true).toPromise());
+            const hasResult: boolean = result.success && this.isPersisted(result.data!);
+            resolve(hasResult);
+        });
+    }
+
     public update(contact: IContact, background?: boolean): Promise<boolean> | boolean {
 
         if (!this.isPersisted(contact)) {
