@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {CONTACTS_CONFIG, IProfile} from '../types/circlecrm-contact.types';
+import {CONTACTS_CONFIG, IProfile, ISaveProfileResult} from '../types/circlecrm-contact.types';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {AlertService, create_headers, json_decode, merge_url_fragments, wrap} from '@circlecrm/circlecrm-core';
 import {Observable} from 'rxjs/Observable';
@@ -44,16 +44,22 @@ export class CirclecrmProfileService {
             }).toPromise();
     }
 
-    public silentUpdate(profile: IProfile): Promise<boolean> | boolean {
-        if (!this.isPersisted(profile)) {
-            // not versioned profile
-            return false;
-        }
+    public silentUpdate(profile: IProfile): Promise<ISaveProfileResult> {
+        return new Promise<ISaveProfileResult>(async (resolve) => {
 
-        return new Promise<boolean>(async (resolve) => {
+            if (!this.isPersisted(profile)) {
+                // not versioned profile
+                resolve({success: false, error: 'not persisted profile'});
+                return;
+            }
+
             const result = await wrap(this.doUpdate(profile, true).toPromise());
             const hasResult: boolean = result.success && this.isPersisted(result.data!);
-            resolve(hasResult);
+            resolve({
+                data: result.data,
+                error: result.error,
+                success: hasResult
+            });
         });
     }
 

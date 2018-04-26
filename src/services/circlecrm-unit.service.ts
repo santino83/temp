@@ -1,9 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
-import {ICcUnit, IHateoasLink} from '../types/circlecrm-auth-extra.types';
+import {ICcUnit} from '../types/circlecrm-auth-extra.types';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CirclecrmAuthAbstractService} from './circlecrm-auth-abstract.service';
 import {AlertService} from '@circlecrm/circlecrm-core';
 import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
+import {get_parent_unit_id} from "../functions/index";
 
 @Injectable()
 export class CirclecrmUnitService extends CirclecrmAuthAbstractService<ICcUnit> {
@@ -51,12 +52,13 @@ export class CirclecrmUnitService extends CirclecrmAuthAbstractService<ICcUnit> 
         );
     }
 
+    /**
+     * @deprecated use get_parent_unit_id instead
+     * @param {ICcUnit} unit
+     * @returns {string | null}
+     */
     public getParentUnitIdFromEntity(unit: ICcUnit): string | null {
-        if (unit._links && ('parent' in unit._links)) {
-            return (unit._links.parent as IHateoasLink).ref_id || '';
-        }
-
-        return null;
+        return get_parent_unit_id(unit);
     }
 
     private buildHeaders(unitId: string | null, background?: boolean): HttpHeaders {

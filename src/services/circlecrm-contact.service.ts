@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {CONTACTS_CONFIG, IContact, IDeletedVersion, STARRED_LABEL} from '../types/index';
+import {CONTACTS_CONFIG, IContact, IDeletedVersion, ISaveContactResult, STARRED_LABEL} from '../types/index';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {AlertService, create_headers, json_decode, merge_url_fragments, wrap} from '@circlecrm/circlecrm-core';
 import {Observable} from 'rxjs/Observable';
@@ -69,16 +69,22 @@ export class CirclecrmContactService {
 
     }
 
-    public silentUpdate(contact: IContact): Promise<boolean> | boolean {
-        if (!this.isPersisted(contact)) {
-            // not versioned contact, use save instead
-            return false;
-        }
+    public silentUpdate(contact: IContact): Promise<ISaveContactResult> {
+        return new Promise<ISaveContactResult>(async (resolve) => {
 
-        return new Promise<boolean>(async (resolve) => {
+            if (!this.isPersisted(contact)) {
+                // not versioned contact, use save instead
+                resolve({success: false, error: 'not persisted contact'});
+                return;
+            }
+
             const result = await wrap(this.doUpdate(contact, true).toPromise());
             const hasResult: boolean = result.success && this.isPersisted(result.data!);
-            resolve(hasResult);
+            resolve({
+                data: result.data,
+                error: result.error,
+                success: hasResult
+            });
         });
     }
 

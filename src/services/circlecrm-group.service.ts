@@ -1,9 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
-import {ICcGroup, IHateoasLink} from '../types/circlecrm-auth-extra.types';
+import {ICcGroup} from '../types/circlecrm-auth-extra.types';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CirclecrmAuthAbstractService} from './circlecrm-auth-abstract.service';
 import {AlertService} from '@circlecrm/circlecrm-core';
 import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
+import {get_unit_id} from "../functions/index";
 
 @Injectable()
 export class CirclecrmGroupService extends CirclecrmAuthAbstractService<ICcGroup> {
@@ -40,12 +41,13 @@ export class CirclecrmGroupService extends CirclecrmAuthAbstractService<ICcGroup
         );
     }
 
+    /**
+     * @deprecated use get_unit_id instead
+     * @param {ICcGroup} group
+     * @returns {string | null}
+     */
     public getUnitIdFromEntity(group: ICcGroup): string | null {
-        if (group._links && ('unit' in group._links)) {
-            return (group._links.unit as IHateoasLink).ref_id || '';
-        }
-
-        return null;
+        return get_unit_id(group);
     }
 
     private buildHeaders(unitId: string, background?: boolean): HttpHeaders {
