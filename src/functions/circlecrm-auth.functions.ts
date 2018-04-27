@@ -1,4 +1,4 @@
-import {ICcGroup, ICcUnit, ICcUser, IHateoasLink} from "../types/index";
+import {ICcGroup, ICcUnit, ICcUser, IHateoasLink} from '../circlecrm-auth.types';
 
 export function get_unit_id(entity: ICcUser | ICcGroup): string | null {
     if (entity._links && ('unit' in entity._links)) {

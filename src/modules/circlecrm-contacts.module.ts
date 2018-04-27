@@ -1,5 +1,5 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import {CIRCLECRM_CONTACTS_BASE_URL, CONTACTS_CONFIG} from '../types/index';
+import {CIRCLECRM_CONTACTS_BASE_URL, CONTACTS_CONFIG} from '../circlecrm-auth.types';
 import {HttpClientModule} from '@angular/common/http';
 import {CirclecrmContactsCommonModule} from "./circlecrm-contacts-common.module";
 import {

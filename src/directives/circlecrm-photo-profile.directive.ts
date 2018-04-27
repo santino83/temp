@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {ContactType, IPhoto} from '../types/circlecrm-contact.types';
+import {ContactType, IPhoto} from '../circlecrm-auth.types';
 
 @Directive({
     selector: '[dirCircleCRMPhotoProfile]'

@@ -1,9 +1,8 @@
 import {EventEmitter, Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ICcCompany} from '../types/circlecrm-auth-extra.types';
 import {create_headers, merge_url_fragments} from '@circlecrm/circlecrm-core';
 import {Observable} from 'rxjs/Observable';
-import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
+import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig, ICcCompany} from "../circlecrm-auth.types";
 
 @Injectable()
 export class CirclecrmCompanyService {

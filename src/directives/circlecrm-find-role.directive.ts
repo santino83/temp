@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Injector} from '@angular/core';
-import {ICcRole, IServiceAction} from '../types/circlecrm-auth-extra.types';
+import {ICcRole, IServiceAction} from '../circlecrm-auth.types';
 import {CirclecrmAbstractFindDirective} from './circlecrm-abstract-find.directive';
 import {CirclecrmAuthAbstractService} from '../services/circlecrm-auth-abstract.service';
 import {CirclecrmRoleService} from '../services/circlecrm-role.service';

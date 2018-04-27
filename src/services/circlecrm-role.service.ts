@@ -1,9 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {ICcRole} from '../types/circlecrm-auth-extra.types';
 import {HttpClient} from '@angular/common/http';
 import {CirclecrmAuthAbstractService} from './circlecrm-auth-abstract.service';
 import {AlertService} from '@circlecrm/circlecrm-core';
-import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
+import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig, ICcRole} from "../circlecrm-auth.types";
 
 @Injectable()
 export class CirclecrmRoleService extends CirclecrmAuthAbstractService<ICcRole> {

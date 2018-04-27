@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {ICcUser, IProfile, IServiceAction, ServiceActionType} from "../types/index";
+import {ICcUser, IProfile, IServiceAction, ServiceActionType} from '../circlecrm-auth.types';
 import {CirclecrmUserService} from "../services/index";
 
 @Component({

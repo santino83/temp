@@ -7,7 +7,7 @@ import {
     IDecodedToken,
     ISsoToken,
     ISsoUser
-} from '../types/circlecrm-auth.types';
+} from '../circlecrm-auth.types';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import {CirclecrmAuthenticationActHelper} from "../utils/circlecrm-authentication-act.helper";
@@ -185,7 +185,9 @@ export class CirclecrmAuthenticationService {
         }
 
         return (this.user.role || [])
-            .filter((role) => roles.includes((role.ref || role.name) + ''))
+            .filter((role) => {
+                return roles.findIndex( (pr) => pr === (role.ref || role.name) + '') >= 0;
+            })
             .length > 0;
     }
 
@@ -202,7 +204,9 @@ export class CirclecrmAuthenticationService {
         }
 
         return (this.user.role || [])
-            .filter((role) => roles.includes((role.ref || role.name) + ''))
+            .filter((role) => {
+                return roles.findIndex( (pr) => pr === (role.ref || role.name) + '') >= 0;
+            })
             .length === roles.length;
     }
 

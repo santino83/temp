@@ -1,9 +1,14 @@
 import {CirclecrmAuthAbstractService} from './circlecrm-auth-abstract.service';
 import {HttpClient} from '@angular/common/http';
 import {Inject, Injectable} from '@angular/core';
-import {ICcInvitation, ISimpleInvitation, ISimpleInvitationPerson} from '../types/circlecrm-auth-extra.types';
+import {
+    AUTHMODULE_CONFIG,
+    IAuthenticationModuleConfig,
+    ICcInvitation,
+    ISimpleInvitation,
+    ISimpleInvitationPerson
+} from '../circlecrm-auth.types';
 import {AlertService} from '@circlecrm/circlecrm-core';
-import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
 
 @Injectable()
 export class CirclecrmInvitationService extends CirclecrmAuthAbstractService<ICcInvitation> {

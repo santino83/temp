@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {CONTACTS_CONFIG, ITimezone} from '../types/circlecrm-contact.types';
+import {CONTACTS_CONFIG, ITimezone} from '../circlecrm-auth.types';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {create_headers, json_decode, merge_url_fragments} from '@circlecrm/circlecrm-core';

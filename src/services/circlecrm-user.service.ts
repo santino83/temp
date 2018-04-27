@@ -1,9 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {ICcUser} from '../types/circlecrm-auth-extra.types';
 import {HttpClient} from '@angular/common/http';
 import {CirclecrmAuthAbstractService} from './circlecrm-auth-abstract.service';
 import {AlertService} from '@circlecrm/circlecrm-core';
-import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
+import {AUTHMODULE_CONFIG, IAuthenticationModuleConfig, ICcUser} from "../circlecrm-auth.types";
 import {get_groups_id, get_roles_id, get_unit_id} from "../functions/index";
 
 @Injectable()

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CirclecrmAuthenticationService} from "./circlecrm-authentication.service";
-import {ISsoApp} from "../types";
+import {ISsoApp} from '../circlecrm-auth.types';
 
 @Injectable()
 export class CirclecrmAppsService {

@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {CONTACTS_CONFIG, IDeletedVersion, ILabel, ILabelEntity} from '../types/index';
+import {CONTACTS_CONFIG, IDeletedVersion, ILabel, ILabelEntity} from '../circlecrm-auth.types';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {AlertService, create_headers, json_decode, merge_url_fragments, wrap} from '@circlecrm/circlecrm-core';
 import {Observable} from 'rxjs/Observable';

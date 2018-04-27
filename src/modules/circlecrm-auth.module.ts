@@ -2,7 +2,7 @@ import {InjectionToken, Injector, ModuleWithProviders, NgModule} from '@angular/
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {Ng2Webstorage} from "ngx-webstorage";
 import {CIRCLECRM_MENU_FILTER} from "@circlecrm/circlecrm-core";
-import {AUTHMODULE_CONFIG, CIRCLECRM_URI_NS, IAuthenticationModuleConfig} from "../types/index";
+import {AUTHMODULE_CONFIG, CIRCLECRM_URI_NS, IAuthenticationModuleConfig} from '../circlecrm-auth.types';
 import {CirclecrmAuthenticationGuard, CirclecrmAuthenticationRoleGuard} from "../guards/index";
 import {CirclecrmAuthenticationHttpInterceptor} from "../http/circlecrm-authentication.http.interceptor";
 import {CirclecrmRoleMenuFilter} from "../filters/circlecrm-role-menu.filter";

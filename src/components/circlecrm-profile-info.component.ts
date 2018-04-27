@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
-import {IProfile} from '../types/circlecrm-contact.types';
+import {IProfile} from '../circlecrm-auth.types';
 import {CirclecrmProfileService} from '../services/circlecrm-profile.service';
 import {wrap} from '@circlecrm/circlecrm-core';
 

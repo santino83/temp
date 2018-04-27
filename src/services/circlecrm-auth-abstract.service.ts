@@ -1,5 +1,11 @@
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {ICcEntitiesList, IHateoasEntity, IServiceAction, ServiceActionType} from '../types/circlecrm-auth-extra.types';
+import {
+    IAuthenticationModuleConfig,
+    ICcEntitiesList,
+    IHateoasEntity,
+    IServiceAction,
+    ServiceActionType
+} from '../circlecrm-auth.types';
 import {
     AlertResultType,
     AlertService,
@@ -10,7 +16,6 @@ import {
 } from '@circlecrm/circlecrm-core';
 import {Observable} from 'rxjs/Observable';
 import {EventEmitter} from '@angular/core';
-import {IAuthenticationModuleConfig} from "../types/circlecrm-auth.types";
 
 export abstract class CirclecrmAuthAbstractService<T extends IHateoasEntity> {
 

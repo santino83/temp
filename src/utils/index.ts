@@ -1,1 +1,1 @@
-export * from './circlecrm-authentication-act.helper';
+export {CirclecrmAuthenticationActHelper} from './circlecrm-authentication-act.helper';

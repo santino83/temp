@@ -1,4 +1,4 @@
-import {IAuthenticationModuleConfig, ISsoUser} from "../types";
+import {IAuthenticationModuleConfig, ISsoUser} from '../circlecrm-auth.types';
 import {HttpRequest} from "@angular/common/http";
 
 export class CirclecrmAuthenticationActHelper {

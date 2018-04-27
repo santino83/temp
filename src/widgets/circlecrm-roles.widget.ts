@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {CirclecrmRoleService} from '../services/circlecrm-role.service';
-import {ICcRole, IServiceAction, ServiceActionType} from '../types/circlecrm-auth-extra.types';
+import {ICcRole, IServiceAction, ServiceActionType} from '../circlecrm-auth.types';
 
 @Component({
     encapsulation: ViewEncapsulation.None,

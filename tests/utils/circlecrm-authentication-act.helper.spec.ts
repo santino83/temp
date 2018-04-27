@@ -1,4 +1,4 @@
-import {CIRCLECRM_URI_NS} from "../../src/types";
+import {CIRCLECRM_URI_NS} from "../../src/circlecrm-auth.types";
 import {CirclecrmAuthenticationActHelper} from "../../src/utils/circlecrm-authentication-act.helper";
 
 window.onbeforeunload = () => {};
